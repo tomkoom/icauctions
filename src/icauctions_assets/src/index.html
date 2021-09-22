@@ -1,20 +1,63 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width">
-    <title>icauctions</title>
-    <base href="/">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<title>icAuctions - auctions on Internet Computer</title>
+		<base href="/" />
 
-    <link type="text/css" rel="stylesheet" href="main.css" />
-</head>
-<body>
-    <img src="logo.png" alt="DFINITY logo" />
-    <section>
-        <label for="name">Enter your name: &nbsp;</label>
-        <input id="name" alt="Name" type="text" />
-        <button id="clickMeBtn">Click Me!</button>
-    </section>
-    <section id="greeting"></section>
-</body>
+		<link type="text/css" rel="stylesheet" href="main.css" />
+	</head>
+	<body>
+		<nav class="nav">
+			<h1>icAuctions</h1>
+			<button class="plug-connect-btn">Connect Wallet</button>
+		</nav>
+		<div class="container">
+			<div class="container__content">
+				<p>(timer)</p>
+				<img
+					class="artwork"
+					src="https://uploads0.wikiart.org/00339/images/leonardo-da-vinci/mona-lisa-c-1503-1519.jpg"
+					alt="NFT for sale"
+				/>
+				<p>Current bid: 12 ICP by <a href="">38ds...3124</a></p>
+				<div class="bid-controls">
+					<input class="bid-input" type="number" min="" max="" />
+					<button class="bid-btn">Bid</button>
+				</div>
+			</div>
+		</div>
+	</body>
 </html>
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<title>icauctions</title>
+		<base href="/" />
+
+		<link type="text/css" rel="stylesheet" href="main.css" />
+	</head>
+	<body>
+		<div class="container">
+			<h1 id="headline">Countdown to my birthday:</h1>
+			<div id="countdown">
+				<ul>
+					<li><span id="days"></span>days</li>
+					<li><span id="hours"></span>Hours</li>
+					<li><span id="minutes"></span>Minutes</li>
+					<li><span id="seconds"></span>Seconds</li>
+				</ul>
+			</div>
+			<div id="content" class="emoji">
+				<span>🥳</span>
+				<span>🎉</span>
+				<span>🎂</span>
+			</div>
+		</div>
+        <script></script>
+	</body>
+</html> -->

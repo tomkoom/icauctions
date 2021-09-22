@@ -7,3 +7,4 @@ document.getElementById("clickMeBtn").addEventListener("click", async () => {
 
   document.getElementById("greeting").innerText = greeting;
 });
+
