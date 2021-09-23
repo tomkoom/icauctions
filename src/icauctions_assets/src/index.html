@@ -11,7 +11,7 @@
 	<body>
 		<nav class="nav">
 			<h1>icAuctions</h1>
-			<button class="plug-connect-btn">Connect Wallet</button>
+			<button class="connect-wallet-btn">Connect Wallet</button>
 		</nav>
 		<div class="container">
 			<div class="container__content">
@@ -23,11 +23,21 @@
 				/>
 				<p>Current bid: 12 ICP by <a href="">38ds...3124</a></p>
 				<div class="bid-controls">
-					<input class="bid-input" type="number" min="" max="" />
-					<button class="bid-btn">Bid</button>
+					<input
+						class="bid-input"
+						type="number"
+						placeholder="Input bid amount"
+						min="0"
+						max=""
+					/>
+					<button class="bid-btn">
+						Connect wallet to make a bid
+					</button>
 				</div>
+				<div class="error-msg-div"></div>
 			</div>
 		</div>
+		<!-- <script src="script.js"></script> -->
 	</body>
 </html>
 
