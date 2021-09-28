@@ -3,7 +3,6 @@ const bidInput = document.querySelector('.bid-input');
 const bidBtn = document.querySelector('.bid-btn');
 const errorMsgDiv = document.querySelector('.error-msg-div');
 
-
 const receiverAccountId = '033342967deadd9ab23ffc2a2e770d49d3bd9b830d32b0185da7f5f7d20fce9a';
 const nnsCanisterId = 'rwlgt-iiaaa-aaaaa-aaaaa-cai';
 const whitelist = [
@@ -16,29 +15,32 @@ let bidAmount = 0;
 
 
 // CONNECT WALLET
-async function onConnectWalletBtnPress(el) {
+async function onConnectWalletBtnPress(e) {
 
-  el.target.disabled = true;
+  e.target.disabled = true;
   const hasAllowed = await window.ic.plug.requestConnect({
     whitelist,
   });
 
-  // const connectionState = hasAllowed ? 'allowed' : 'denied';
-
   if (hasAllowed) {
     const principalId = await window.ic.plug.agent.getPrincipal();
+
+    const principalIdHidden =
+      `${principalId.toString().substring(0, 5)}...${principalId.toString().substring(principalId.toString().length - 3)}`
     console.log('Plug wallet is connected');
     walletIsConnected = true;
     bidBtn.disabled = false;
+    bidBtn.classList.add('active');
     bidBtn.innerText = 'Bid';
-    el.target.textContent = principalId;
-    el.target.style.color = 'black';
-    el.target.style.cursor = 'auto';
-    el.target.style.background = 'white';
+    e.target.textContent = principalIdHidden;
+    e.target.style.color = '#718096';
+    e.target.style.cursor = 'auto';
+    e.target.style.background = '#edf2f7';
+    e.target.style.fontWeight = '600';
 
   } else {
     console.log('Plug wallet connection was refused');
-    el.target.disabled = false;
+    e.target.disabled = false;
     console.log(hasAllowed);
     // try catch
   }
@@ -46,36 +48,39 @@ async function onConnectWalletBtnPress(el) {
 
 function updateBidAmount(e) {
   bidAmount = e.target.value;
-  console.log(bidAmount);
+  if (walletIsConnected) {
+    bidBtn.innerText = `Bid ${bidAmount} ICP`;
+  }
 }
 
 // BID
-async function onBidBtnPress(el) {
+async function onBidBtnPress(e) {
 
-  el.target.textContent = 'Loading Plug...';
+  e.target.disabled = true;
+  e.target.textContent = 'Loading Plug...';
 
   if (walletIsConnected) {
     const balance = await window.ic?.plug?.requestBalance();
 
     if (bidAmount <= balance[0].amount) {
-      el.target.textContent = 'Waiting for confirmation';
+      e.target.textContent = 'Waiting for confirmation...';
 
-      const bidAmountConverted = bidAmount * 100000000;
       const requestTransferArg = {
         to: receiverAccountId,
-        amount: bidAmountConverted,
+        amount: bidAmount * 100000000,
       };
 
       const transfer = await window.ic?.plug?.requestTransfer(requestTransferArg);
+
+      e.target.textContent = 'Transaction sent';
 
     } else {
       errorMsgDiv.innerHTML = "Plug wallet doesn't have enough balance";
     }
 
     // setTimeout(() => {
-    //   el.target.textContent = 'Bid';
+    //   e.target.textContent = 'Bid';
     // }, 5000);
-    // el.target.textContent = 'Transaction sent';
 
   } else {
     console.log('Plug wallet is not connected');
@@ -83,13 +88,7 @@ async function onBidBtnPress(el) {
 
 }
 
-function updateBidBtn(e) {
-  if (walletIsConnected) {
-    bidBtn.innerText = `Bid ${e.target.value} icp`;
-  }
-}
 
 connectWalletBtn.addEventListener('click', onConnectWalletBtnPress);
 bidInput.addEventListener('input', updateBidAmount);
-bidInput.addEventListener('input', updateBidBtn);
 bidBtn.addEventListener('click', onBidBtnPress);

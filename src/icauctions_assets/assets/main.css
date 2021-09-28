@@ -1,4 +1,8 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@500;700;900&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Inter:wght@500;700;900&display=swap"); */
+
+/* @import url('https://fonts.googleapis.com/css2?family=Eczar:wght@400;600;800&display=swap'); */
+
+@import url("https://fonts.googleapis.com/css2?family=Mulish:wght@500;700;900&display=swap");
 
 :root {
 	--colorGray900: #171923;
@@ -21,8 +25,14 @@
 	--fontSize6: 1rem;
 }
 
+::placeholder {
+	color: var(--colorGray500);
+}
+
 * {
-	font-family: "Inter", sans-serif;
+	/* font-family: "Inter", sans-serif;
+	font-family: 'Eczar', serif; */
+	font-family: "Mulish", sans-serif;
 }
 
 body {
@@ -32,10 +42,11 @@ body {
 /* TYPOGRAPHY */
 
 html {
-	font-size: 17px;
+	font-size: 17px; /* Root font-size */
 }
 
 /* NAV */
+
 .nav {
 	display: flex;
 	justify-content: space-between;
@@ -94,9 +105,9 @@ html {
 /* BUTTONS */
 
 .connect-wallet-btn {
+	font-weight: var(--fontWeightBlack);
 	border: none;
 	font-style: normal;
-	font-weight: bold;
 	font-size: 16px;
 	line-height: 24px;
 	background: linear-gradient(
@@ -120,8 +131,9 @@ html {
 } */
 
 .bid-btn {
+	font-size: var(--fontSize6);
 	font-weight: var(--fontWeightBlack);
-	background-color: var(--colorGray900); /* Green */
+	background-color: var(--colorGray400); /* Green */
 	border: none;
 	color: var(--colorWhite);
 	padding: 15px 32px;
@@ -130,4 +142,20 @@ html {
 	display: inline-block;
 	font-size: 16px;
 	border-radius: 4px;
+	cursor: pointer;
+}
+
+.active {
+	background-color: var(--colorGray900);
+}
+
+/* LINKS */
+
+.link {
+	text-decoration: none;
+	color: var(--colorGray500);
+}
+
+.error-msg-div {
+	text-align: center;
 }
