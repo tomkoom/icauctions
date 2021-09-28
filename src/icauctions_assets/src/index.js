@@ -35,7 +35,7 @@ async function onConnectWalletBtnPress(el) {
     el.target.style.color = 'black';
     el.target.style.cursor = 'auto';
     el.target.style.background = 'white';
-    console.log(hasAllowed);
+
   } else {
     console.log('Plug wallet connection was refused');
     el.target.disabled = false;
@@ -72,10 +72,10 @@ async function onBidBtnPress(el) {
       errorMsgDiv.innerHTML = "Plug wallet doesn't have enough balance";
     }
 
-    setTimeout(() => {
-      el.target.textContent = 'Bid';
-    }, 5000);
-    el.target.textContent = 'Transaction sent';
+    // setTimeout(() => {
+    //   el.target.textContent = 'Bid';
+    // }, 5000);
+    // el.target.textContent = 'Transaction sent';
 
   } else {
     console.log('Plug wallet is not connected');
@@ -83,7 +83,13 @@ async function onBidBtnPress(el) {
 
 }
 
+function updateBidBtn(e) {
+  if (walletIsConnected) {
+    bidBtn.innerText = `Bid ${e.target.value} icp`;
+  }
+}
 
 connectWalletBtn.addEventListener('click', onConnectWalletBtnPress);
 bidInput.addEventListener('input', updateBidAmount);
+bidInput.addEventListener('input', updateBidBtn);
 bidBtn.addEventListener('click', onBidBtnPress);
