@@ -12,6 +12,7 @@
 	--colorGray300: #cbd5e0;
 	--colorGray100: #edf2f7;
 	--colorWhite: #fff;
+	--colorBlue: #0066ff;
 
 	--fontWeightBlack: 900;
 	--fontWeightBold: 700;
@@ -74,7 +75,6 @@ html {
 	display: flex;
 	align-items: center;
 	flex-direction: column;
-	gap: 16px;
 	margin: 0 auto;
 	max-width: 320px;
 }
@@ -87,7 +87,7 @@ html {
 	display: flex;
 	flex-direction: column;
 	gap: 16px;
-	width: 100%;
+	/* width: 100%; */
 }
 
 .bid-input {
@@ -119,7 +119,7 @@ html {
 	);
 	border-radius: 10px;
 	color: #fff;
-	padding: 6px 16px;
+	padding: 8px 12px;
 	cursor: pointer;
 	transition: opacity 0.3s ease-in, transform 0.3s ease-in-out;
 	transform: scale(1);
@@ -133,10 +133,10 @@ html {
 .bid-btn {
 	font-size: var(--fontSize6);
 	font-weight: var(--fontWeightBlack);
-	background-color: var(--colorGray400); /* Green */
+	background-color: var(--colorGray900); /* Green */
 	border: none;
 	color: var(--colorWhite);
-	padding: 15px 32px;
+	padding: 16px;
 	text-align: center;
 	text-decoration: none;
 	display: inline-block;
@@ -145,17 +145,34 @@ html {
 	cursor: pointer;
 }
 
-.active {
+/* .active {
 	background-color: var(--colorGray900);
-}
+} */
 
 /* LINKS */
 
 .link {
 	text-decoration: none;
-	color: var(--colorGray500);
+	color: var(--colorGray900);
 }
 
 .error-msg-div {
 	text-align: center;
+}
+
+.body-text {
+	font-weight: var(--fontWeightBold);
+	line-height: 175%;
+}
+
+.center {
+	text-align: center;
+}
+
+.span-gray500 {
+	color: var(--colorGray500);
+}
+
+b {
+	font-weight: var(--fontWeightBlack);
 }

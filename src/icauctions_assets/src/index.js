@@ -10,14 +10,28 @@ const whitelist = [
 ];
 
 let walletIsConnected = false;
-bidBtn.disabled = true;
+// bidBtn.disabled = true;
 let bidAmount = 0;
+bidInput.style.display = "none";
+
+const style = {
+  loggedBtn: `
+    color: #718096;
+    cursor: auto;
+    background: none;
+    font-weight: 600;
+
+  	border-radius: 4px;
+  `
+}
+
+
 
 
 // CONNECT WALLET
-async function onConnectWalletBtnPress(e) {
+async function connectWallet() {
 
-  e.target.disabled = true;
+  connectWalletBtn.disabled = true;
   const hasAllowed = await window.ic.plug.requestConnect({
     whitelist,
   });
@@ -26,17 +40,15 @@ async function onConnectWalletBtnPress(e) {
     const principalId = await window.ic.plug.agent.getPrincipal();
 
     const principalIdHidden =
-      `${principalId.toString().substring(0, 5)}...${principalId.toString().substring(principalId.toString().length - 3)}`
+      `👽 ${principalId.toString().substring(0, 5)}...${principalId.toString().substring(principalId.toString().length - 3)}`
     console.log('Plug wallet is connected');
     walletIsConnected = true;
     bidBtn.disabled = false;
-    bidBtn.classList.add('active');
-    bidBtn.innerText = 'Bid';
-    e.target.textContent = principalIdHidden;
-    e.target.style.color = '#718096';
-    e.target.style.cursor = 'auto';
-    e.target.style.background = '#edf2f7';
-    e.target.style.fontWeight = '600';
+    // bidBtn.classList.add('active');
+    bidBtn.innerText = 'Place a bid';
+    bidInput.style.display = "";
+    connectWalletBtn.textContent = principalIdHidden;
+    connectWalletBtn.style.cssText = style.loggedBtn;
 
   } else {
     console.log('Plug wallet connection was refused');
@@ -48,47 +60,50 @@ async function onConnectWalletBtnPress(e) {
 
 function updateBidAmount(e) {
   bidAmount = e.target.value;
-  if (walletIsConnected) {
-    bidBtn.innerText = `Bid ${bidAmount} ICP`;
-  }
 }
 
 // BID
 async function onBidBtnPress(e) {
 
-  e.target.disabled = true;
-  e.target.textContent = 'Loading Plug...';
-
   if (walletIsConnected) {
-    const balance = await window.ic?.plug?.requestBalance();
+    e.target.disabled = true;
+    e.target.textContent = 'Loading Plug...';
 
-    if (bidAmount <= balance[0].amount) {
-      e.target.textContent = 'Waiting for confirmation...';
+    if (walletIsConnected) {
+      const balance = await window.ic?.plug?.requestBalance();
 
-      const requestTransferArg = {
-        to: receiverAccountId,
-        amount: bidAmount * 100000000,
-      };
+      if (bidAmount <= balance[0].amount) {
+        e.target.textContent = 'Waiting for confirmation...';
 
-      const transfer = await window.ic?.plug?.requestTransfer(requestTransferArg);
+        const requestTransferArg = {
+          to: receiverAccountId,
+          amount: bidAmount * 100000000,
+        };
 
-      e.target.textContent = 'Transaction sent';
+        const transfer = await window.ic?.plug?.requestTransfer(requestTransferArg);
+
+        e.target.textContent = 'Transaction sent';
+
+      } else {
+        errorMsgDiv.innerHTML = "Plug wallet doesn't have enough balance";
+      }
+
+      // setTimeout(() => {
+      //   e.target.textContent = 'Bid';
+      // }, 5000);
 
     } else {
-      errorMsgDiv.innerHTML = "Plug wallet doesn't have enough balance";
+      console.log('Plug wallet is not connected');
     }
-
-    // setTimeout(() => {
-    //   e.target.textContent = 'Bid';
-    // }, 5000);
-
   } else {
-    console.log('Plug wallet is not connected');
+    connectWallet();
   }
+
+
 
 }
 
 
-connectWalletBtn.addEventListener('click', onConnectWalletBtnPress);
+connectWalletBtn.addEventListener('click', connectWallet);
 bidInput.addEventListener('input', updateBidAmount);
 bidBtn.addEventListener('click', onBidBtnPress);
